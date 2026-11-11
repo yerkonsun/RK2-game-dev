@@ -88,23 +88,39 @@ public class PatrolEnemy : Enemy
         }
     }
 
-    void ChaseLogic()
+        void ChaseLogic()
     {
         if (player == null) return;
 
         Vector2 pos = rb.position;
-        Vector2 targetPos = new Vector2(player.position.x, pos.y);
-        rb.MovePosition(Vector2.MoveTowards(pos, targetPos, chaseSpeed * Time.fixedDeltaTime));
-
-        dir = player.position.x > pos.x ? 1 : -1;
+        int targetDir = player.position.x > pos.x ? 1 : -1;
+        dir = targetDir;
         sr.flipX = dir > 0;
 
-        if (Vector2.Distance(pos, player.position) > visionRange || !CanSeePlayer())
+        bool wall = Physics2D.Raycast(pos + Vector2.up * 0.3f, Vector2.right * dir, 0.7f, groundMask);
+        
+        Vector2 ledgeCheckPos = pos + new Vector2(dir * 0.6f, 0.1f);
+        bool ledge = !Physics2D.Raycast(ledgeCheckPos, Vector2.down, 1.5f, groundMask);
+
+        Debug.DrawRay(ledgeCheckPos, Vector2.down * 1.5f, ledge ? Color.red : Color.green);
+
+        if (!wall && !ledge)
         {
-            currentState = State.Patrol;
-            originX = pos.x;
+            Vector2 targetPos = new Vector2(player.position.x, pos.y);
+            rb.MovePosition(Vector2.MoveTowards(pos, targetPos, chaseSpeed * Time.fixedDeltaTime));
         }
-        else if (Vector2.Distance(pos, player.position) <= attackRange)
+        else
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
+            if (Vector2.Distance(pos, player.position) > visionRange || !CanSeePlayer())
+            {
+                currentState = State.Patrol;
+                originX = pos.x;
+            }
+        }
+
+        if (Vector2.Distance(pos, player.position) <= attackRange)
         {
             currentState = State.Attack;
             timer = windUpTime;
