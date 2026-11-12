@@ -457,7 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 181679838}
   - component: {fileID: 181679839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 319151807}
   - component: {fileID: 319151806}
   - component: {fileID: 319151805}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1348,7 +1348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 453891561}
   - component: {fileID: 453891562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1440,7 +1440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 511766832}
   - component: {fileID: 511766833}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1531,7 +1531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 536798670}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1625,7 +1625,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 635309620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1658,7 +1658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 662992239}
   - component: {fileID: 662992240}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1750,7 +1750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 691870748}
   - component: {fileID: 691870749}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1842,7 +1842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 703281796}
   - component: {fileID: 703281797}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1979,6 +1979,14 @@ PrefabInstance:
     - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
       propertyPath: range
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1128129631}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2306,7 +2314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 784597574}
   - component: {fileID: 784597575}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2398,7 +2406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 858107079}
   - component: {fileID: 858107080}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2490,7 +2498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 867464780}
   - component: {fileID: 867464781}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2637,7 +2645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 924438843}
   - component: {fileID: 924438844}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2716,7 +2724,7 @@ GameObject:
   m_Component:
   - component: {fileID: 933190231}
   - component: {fileID: 933190232}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3008,8 +3016,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4495260560727206810, guid: 79d50cc079ef6014aaa9eca7e8365f90, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 320
+      objectReference: {fileID: 0}
     - target: {fileID: 5469765160248530217, guid: 79d50cc079ef6014aaa9eca7e8365f90, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469765160248530217, guid: 79d50cc079ef6014aaa9eca7e8365f90, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6475765146109728770, guid: 79d50cc079ef6014aaa9eca7e8365f90, type: 3}
@@ -3113,6 +3129,14 @@ PrefabInstance:
       propertyPath: range
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1128129631}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3185,6 +3209,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3583798540699434458, guid: 55829c2c551f71c4da60ec4e2387db0c, type: 3}
   m_PrefabInstance: {fileID: 1120314662}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1128129631 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6475765146109728770, guid: 79d50cc079ef6014aaa9eca7e8365f90, type: 3}
+  m_PrefabInstance: {fileID: 1110611531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1153469016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3240,6 +3269,14 @@ PrefabInstance:
     - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
       propertyPath: range
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1128129631}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3306,6 +3343,14 @@ PrefabInstance:
     - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
       propertyPath: range
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1128129631}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3699,6 +3744,14 @@ PrefabInstance:
       propertyPath: range
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1128129631}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3723,7 +3776,7 @@ GameObject:
   - component: {fileID: 1427183924}
   - component: {fileID: 1427183923}
   - component: {fileID: 1427183922}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3922,7 +3975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1462349744}
   - component: {fileID: 1462349745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4076,7 +4129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1506793351}
   - component: {fileID: 1506793352}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4248,7 +4301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666337049}
   - component: {fileID: 1666337050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4386,6 +4439,14 @@ PrefabInstance:
       propertyPath: range
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1128129631}
+    - target: {fileID: 7230221536753996970, guid: 92a5b4bf95e5f13439b7e7dbfc9fcf58, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4468,7 +4529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1799498989}
   - component: {fileID: 1799498990}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4547,7 +4608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1837803806}
   - component: {fileID: 1837803807}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4643,7 +4704,7 @@ GameObject:
   - component: {fileID: 1855286162}
   - component: {fileID: 1855286161}
   - component: {fileID: 1855286160}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Mover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4842,7 +4903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1864489720}
   - component: {fileID: 1864489721}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4934,7 +4995,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1876428386}
   - component: {fileID: 1876428387}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5105,7 +5166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1913800783}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MovingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5262,7 +5323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949844278}
   - component: {fileID: 1949844279}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5478,7 +5539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2068517587}
   - component: {fileID: 2068517588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

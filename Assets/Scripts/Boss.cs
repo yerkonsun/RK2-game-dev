@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// The Temple Guardian. Alternates two attacks with a pause between them (the window to shoot back):
-//   FanShot  - a fan of magma orbs aimed at the player
-//   FireRain - red columns with a "!" warn the player, then magma falls down them
-// Below half HP (phase 2) the pauses are shorter and the attacks are bigger.
 public class Boss : Enemy
 {
+    public enum State { Patrol, WindUp, Attacking, Cooldown }
+    public State currentState = State.Patrol;
+
+    [Header("Existing Attack Settings")]
     public EnemyProjectile fireballPrefab;
     public GameObject warnPrefab;
     public Transform muzzle;
@@ -15,10 +15,27 @@ public class Boss : Enemy
     public float rainMaxX = 14f;
     public float rainTopY = 12f;
 
+    [Header("Movement Settings")]
+    public float moveSpeed = 1.5f;
+    public float patrolRange = 3f;
+
+    [Header("Vision Settings")]
+    public float visionRange = 12f;
+    public LayerMask wallLayer;
+
+    [Header("Attack Timing (Fair Attack)")]
+    public float windUpTime = 0.7f;
+    public float cooldownTime = 2.0f;
+
     Transform player;
     SpriteRenderer sr;
-    Vector3 basePos;
+    float startX;
+    int dir = 1;
     bool phase2;
+    bool isAttacking;
+    
+    float timer;
+    int attackCounter = 0;
 
     bool InPhase2 { get { return health.Current <= health.maxHP / 2; } }
 
@@ -26,49 +43,90 @@ public class Boss : Enemy
     {
         base.Awake();
         sr = GetComponent<SpriteRenderer>();
-        basePos = transform.position;
+        startX = transform.position.x;
     }
 
     void Start()
     {
         var p = FindAnyObjectByType<PlayerController>();
         if (p != null) player = p.transform;
-        StartCoroutine(AttackLoop());
+        
+        currentState = State.Patrol;
     }
 
     void Update()
     {
         if (health.IsDead) return;
-        // idle sway so the boss feels alive
+
         float s = Mathf.Sin(Time.time * 1.6f);
-        transform.position = basePos + new Vector3(0f, s * 0.08f, 0f);
-    }
+        transform.position = new Vector3(transform.position.x, transform.position.y + s * 0.005f, transform.position.z);
 
-    public override void Hit(int amount)
-    {
-        if (health.IsDead) return;
-        health.TakeDamage(amount);
-        Sfx.Play("boss_hit", 0.9f);
-        if (!phase2 && InPhase2 && !health.IsDead)
+        switch (currentState)
         {
-            phase2 = true;
-            sr.color = new Color(1f, 0.55f, 0.55f, 1f);
-            Sfx.Play("warning");
+            case State.Patrol:
+                PatrolLogic();
+                break;
+            case State.WindUp:
+                WindUpLogic();
+                break;
+            case State.Cooldown:
+                CooldownLogic();
+                break;
+            case State.Attacking:
+                break;
         }
     }
 
-    IEnumerator AttackLoop()
+    void PatrolLogic()
     {
-        yield return new WaitForSeconds(2f);
-        int n = 0;
-        while (!health.IsDead)
+        transform.position += new Vector3(dir * moveSpeed * Time.deltaTime, 0f, 0f);
+        
+        if (transform.position.x > startX + patrolRange) dir = -1;
+        else if (transform.position.x < startX - patrolRange) dir = 1;
+
+        if (CanSeePlayer())
         {
-            if (n % 2 == 0) yield return FanShot();
-            else yield return FireRain();
-            n++;
-            // pause between attacks: a window to run up and shoot
-            yield return new WaitForSeconds(phase2 ? 1.6f : 2.6f);
+            currentState = State.WindUp;
+            timer = windUpTime;
         }
+    }
+
+    void WindUpLogic()
+    {
+        sr.color = new Color(1f, 0.4f, 0.4f, 1f); 
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            sr.color = phase2 ? new Color(1f, 0.55f, 0.55f, 1f) : Color.white;
+            currentState = State.Attacking;
+            StartCoroutine(ExecuteAttack());
+        }
+    }
+
+    void CooldownLogic()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            currentState = State.Patrol;
+        }
+    }
+
+    IEnumerator ExecuteAttack()
+    {
+        isAttacking = true;
+        
+        if (attackCounter % 2 == 0) 
+            yield return StartCoroutine(FanShot());
+        else 
+            yield return StartCoroutine(FireRain());
+            
+        attackCounter++;
+        isAttacking = false;
+        
+        currentState = State.Cooldown;
+        timer = cooldownTime; 
     }
 
     IEnumerator FanShot()
@@ -100,7 +158,6 @@ public class Boss : Enemy
         {
             int columns = phase2 ? 5 : 3;
             var xs = new List<float>();
-            // one column always lands near the player, so the warning matters
             xs.Add(Mathf.Clamp(player.position.x, rainMinX, rainMaxX));
             int guard = 0;
             while (xs.Count < columns && guard++ < 100)
@@ -130,6 +187,30 @@ public class Boss : Enemy
         }
     }
 
+    bool CanSeePlayer()
+    {
+        if (player == null) return false;
+        if (Vector2.Distance(transform.position, player.position) > visionRange) return false;
+
+        Vector2 direction = (player.position - transform.position).normalized;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, visionRange, wallLayer);
+
+        return hit.collider == null;
+    }
+
+    public override void Hit(int amount)
+    {
+        if (health.IsDead) return;
+        health.TakeDamage(amount);
+        Sfx.Play("boss_hit", 0.9f);
+        if (!phase2 && InPhase2 && !health.IsDead)
+        {
+            phase2 = true;
+            sr.color = new Color(1f, 0.55f, 0.55f, 1f);
+            Sfx.Play("warning");
+        }
+    }
+
     protected override void OnDied()
     {
         StopAllCoroutines();
@@ -142,11 +223,12 @@ public class Boss : Enemy
     IEnumerator DeathRoutine()
     {
         float t = 0f;
+        Vector3 deathPos = transform.position;
         while (t < 1.4f)
         {
             t += Time.deltaTime;
             float shake = Mathf.Sin(t * 60f) * 0.1f;
-            transform.position = basePos + new Vector3(shake, 0f, 0f);
+            transform.position = deathPos + new Vector3(shake, 0f, 0f);
             var c = sr.color;
             c.a = Mathf.Clamp01(1f - t / 1.4f);
             sr.color = c;

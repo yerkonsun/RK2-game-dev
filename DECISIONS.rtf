@@ -10,4 +10,7 @@
 - **2026-11-11**: Upgraded the Scorpion (`PatrolEnemy.cs`) from simple back-and-forth movement to a full 3-state FSM (Patrol -> Chase -> Attack). Added `Cooldown` state to make attacks fair.\
 - **2026-11-11**: Added a `Physics2D.Raycast` for vision so the Scorpion cannot see the player through walls. Assigned a `Wall` layer to all static obstacles.\
 - **2026-11-11**: Fixed a bug where the Scorpion would blindly run off ledges while chasing. Added ledge and wall checks inside the `ChaseLogic` so it stops at edges.\
-- **2026-11-11**: Added a 0.5s `windUpTime` (red flash) before the Scorpion attack so the player has time to react.}
+- **2026-11-11**: Added a 0.5s `windUpTime` (red flash) before the Scorpion attack so the player has time to react.\
+\
+\
+- 2026-11-12: Upgraded Boss AI. Added a 3-state machine (Patrol, WindUp, Attack). Added Raycast vision so he doesn't shoot through pillars. Added a 0.7s WindUp (red flash) before he attacks to make it fair.}
