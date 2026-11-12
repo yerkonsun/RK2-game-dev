@@ -13,4 +13,6 @@
 - **2026-11-11**: Added a 0.5s `windUpTime` (red flash) before the Scorpion attack so the player has time to react.\
 \
 \
-- 2026-11-12: Upgraded Boss AI. Added a 3-state machine (Patrol, WindUp, Attack). Added Raycast vision so he doesn't shoot through pillars. Added a 0.7s WindUp (red flash) before he attacks to make it fair.}
+- 2026-11-12: Upgraded Boss AI. Added a 3-state machine (Patrol, WindUp, Attack). Added Raycast vision so he doesn't shoot through pillars. Added a 0.7s WindUp (red flash) before he attacks to make it fair.\
+\
+- 2026-11-12: Playtested with 2 friends. They beat Level 1 in 2 tries. Level 2 was too hard (5 tries). I decreased Scorpion chase speed from 2.5 to 2.0.}
