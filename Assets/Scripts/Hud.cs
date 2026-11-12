@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Heads-up display: hearts, crystal counter, boss HP bar and center messages.
-// All references are wired by the scene builder.
+
 public class Hud : MonoBehaviour
 {
     public Image[] hearts;

@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// Base class for everything that flies: the player bolts and the boss fireballs.
-// Subclasses decide in OnHit() what happens when they touch something.
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Projectile : MonoBehaviour
 {
@@ -37,6 +35,5 @@ public abstract class Projectile : MonoBehaviour
         if (OnHit(other)) Destroy(gameObject);
     }
 
-    // return true if the projectile should disappear
     protected abstract bool OnHit(Collider2D other);
 }

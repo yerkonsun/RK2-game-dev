@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// Menu button: loads a scene or quits the game.
 [RequireComponent(typeof(Button))]
 public class UIButton : MonoBehaviour
 {

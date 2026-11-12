@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// The hero shot: damages enemies and the boss, stops on walls.
 public class PlayerBolt : Projectile
 {
     protected override bool OnHit(Collider2D other)

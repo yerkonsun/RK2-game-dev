@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Gold coin (counts towards the door) or heart (heals 1 HP). Collected through a trigger.
 public class Pickup : MonoBehaviour
 {
     public enum Kind { Crystal, Heart }
@@ -17,7 +16,6 @@ public class Pickup : MonoBehaviour
 
     void Update()
     {
-        // gentle floating
         Vector3 p = transform.position;
         p.y = baseY + Mathf.Sin(Time.time * 2.5f + phase) * 0.08f;
         transform.position = p;
@@ -35,7 +33,7 @@ public class Pickup : MonoBehaviour
         else
         {
             Health h = player.GetComponent<Health>();
-            if (h.Current >= h.maxHP) return; // keep the heart for later
+            if (h.Current >= h.maxHP) return;
             h.Heal(1);
             Sfx.Play("pickup");
         }

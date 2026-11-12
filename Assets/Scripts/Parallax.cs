@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// Background layer that follows the camera partly: factor 1 = glued to the screen, 0 = fixed in the world.
-// The layer stays attached to the bottom of the screen (bottomOffset is measured from it).
 public class Parallax : MonoBehaviour
 {
     public float factor = 0.3f;

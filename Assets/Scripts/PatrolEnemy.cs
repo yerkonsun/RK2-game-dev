@@ -74,7 +74,9 @@ public class PatrolEnemy : Enemy
     {
         Vector2 pos = rb.position;
         bool wall = Physics2D.Raycast(pos + Vector2.up * 0.3f, Vector2.right * dir, 0.7f, groundMask);
-        bool ledge = !Physics2D.Raycast(pos + new Vector2(dir * 0.7f, 0.3f), Vector2.down, 1f, groundMask);
+        
+        bool ledge = !Physics2D.Raycast(pos + new Vector2(dir * 0.7f, 0.3f), Vector2.down, 2f, groundMask);
+        
         bool outOfRange = (dir > 0 && pos.x - originX >= range) || (dir < 0 && pos.x - originX <= -range);
         
         if (wall || ledge || outOfRange) dir = -dir;
@@ -88,7 +90,7 @@ public class PatrolEnemy : Enemy
         }
     }
 
-        void ChaseLogic()
+    void ChaseLogic()
     {
         if (player == null) return;
 
@@ -100,9 +102,10 @@ public class PatrolEnemy : Enemy
         bool wall = Physics2D.Raycast(pos + Vector2.up * 0.3f, Vector2.right * dir, 0.7f, groundMask);
         
         Vector2 ledgeCheckPos = pos + new Vector2(dir * 0.6f, 0.1f);
-        bool ledge = !Physics2D.Raycast(ledgeCheckPos, Vector2.down, 1.5f, groundMask);
+        
+        bool ledge = !Physics2D.Raycast(ledgeCheckPos, Vector2.down, 2f, groundMask);
 
-        Debug.DrawRay(ledgeCheckPos, Vector2.down * 1.5f, ledge ? Color.red : Color.green);
+        Debug.DrawRay(ledgeCheckPos, Vector2.down * 2f, ledge ? Color.red : Color.green);
 
         if (!wall && !ledge)
         {
@@ -127,7 +130,7 @@ public class PatrolEnemy : Enemy
         }
     }
 
-        void AttackLogic()
+    void AttackLogic()
     {
         rb.linearVelocity = Vector2.zero;
         sr.color = Color.red;

@@ -3,13 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-// Pause menu: the "pause" button in the HUD calls Pause(), the three stone buttons call
-// Resume() / Restart() / LoadMenu(). Esc / P toggles the menu on a keyboard.
-// The panel pops in with an animation that runs on unscaled time (the game itself is frozen).
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel;
-    [SerializeField] private RectTransform popup;      // the stone window that scales in (optional)
+    [SerializeField] private RectTransform popup; 
     [SerializeField] private string menuSceneName = "MainMenu";
 
     bool paused;

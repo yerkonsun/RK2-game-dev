@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-// Hit points shared by the player, enemies and the boss.
-// invincibleTime > 0 gives the player a blinking invincibility window after a hit,
-// hitFlash > 0 makes the sprite flash red for a moment (enemies, boss).
+
 public class Health : MonoBehaviour
 {
     public int maxHP = 3;
@@ -65,7 +63,6 @@ public class Health : MonoBehaviour
         Changed?.Invoke(Current, maxHP);
     }
 
-    // Blink while invincible: alternate the sprite alpha every 0.1 s.
     IEnumerator InvincibilityRoutine()
     {
         Invincible = true;

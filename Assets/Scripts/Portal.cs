@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Temple door = level exit. Stays sealed until enough gold coins are collected.
 public class Portal : MonoBehaviour
 {
     public Sprite lockedSprite;

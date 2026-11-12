@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// One per level scene: counts gold coins, opens the temple door, handles death / level end / win.
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -35,7 +34,6 @@ public class GameManager : MonoBehaviour
         if (!string.IsNullOrEmpty(startHint)) StartCoroutine(HintRoutine());
     }
 
-    // small delay so the HUD has subscribed to Message before the hint is sent
     IEnumerator HintRoutine()
     {
         yield return new WaitForSeconds(0.6f);
@@ -90,7 +88,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TreasureRoutine());
     }
 
-    // the guardian falls -> the treasure chest appears and opens -> win screen
     IEnumerator TreasureRoutine()
     {
         Sfx.Play("win");

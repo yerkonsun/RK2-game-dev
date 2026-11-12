@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Static danger: spikes (damage) or the kill zone under pits (instant death).
 public class Hazard : MonoBehaviour
 {
     public int damage = 1;

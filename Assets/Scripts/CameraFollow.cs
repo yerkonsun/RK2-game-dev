@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Smooth side-scrolling camera that stays inside the level bounds.
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
@@ -39,7 +38,6 @@ public class CameraFollow : MonoBehaviour
         float x = target.position.x;
         float y = target.position.y + yOffset;
 
-        // if the level is narrower than the screen just centre it
         float xLo = minX + halfW, xHi = maxX - halfW;
         x = xLo > xHi ? (minX + maxX) / 2f : Mathf.Clamp(x, xLo, xHi);
         y = Mathf.Clamp(y, minY, maxY);

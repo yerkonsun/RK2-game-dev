@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// Loads scenes with a short fade to black. The fader object survives scene loads.
 public class SceneLoader : MonoBehaviour
 {
     static SceneLoader instance;

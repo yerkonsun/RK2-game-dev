@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// Base class for the snakes and the boss. Enemies are kinematic triggers:
-// they hurt the player on contact and lose HP through Hit().
 [RequireComponent(typeof(Health))]
 public abstract class Enemy : MonoBehaviour
 {

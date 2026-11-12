@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// Static helper for sound effects and background music.
-// Clips are loaded from Resources/Audio, the AudioSources live on a persistent object.
 public static class Sfx
 {
     static AudioSource sfxSource;

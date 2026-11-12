@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// The platform itself is moved by an Animation Clip (see Animations/MovePlat_*).
-// This script only carries the player: standing on top makes the player a child of the platform.
 public class MovingPlatform : MonoBehaviour
 {
     Collider2D col;

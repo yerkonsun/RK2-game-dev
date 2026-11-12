@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-// The temple treasure. Hidden while the guardian is alive; GameManager.BossDefeated() calls Reveal():
-// the chest drops in, opens and bursts into gold coins.
 public class Treasure : MonoBehaviour
 {
     public Sprite closedSprite;
@@ -45,7 +43,6 @@ public class Treasure : MonoBehaviour
         for (int i = 0; i < 18; i++) StartCoroutine(Coin(end + Vector3.up * 1.2f));
     }
 
-    // one flying gold coin
     IEnumerator Coin(Vector3 from)
     {
         var go = new GameObject("TreasureCoin");

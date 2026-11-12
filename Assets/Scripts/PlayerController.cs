@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Player movement, jumping and shooting.
-// PlayerInput (Behavior = Send Messages) calls OnMove / OnJump / OnFire.
-// The same actions are fed by the keyboard and by the on-screen stick/buttons.
+
 [RequireComponent(typeof(Rigidbody2D), typeof(Health))]
 public class PlayerController : MonoBehaviour
 {
@@ -13,13 +11,12 @@ public class PlayerController : MonoBehaviour
     public float jumpBuffer = 0.12f;
     public LayerMask groundMask;
 
-    // Shotgun: one shot = a fan of short-range pellets. Deadly up close, weak from far away.
     public Projectile boltPrefab;
     public float fireCooldown = 0.7f;
     public int pellets = 5;
-    public float spreadAngle = 16f;     // total width of the fan in degrees
+    public float spreadAngle = 16f;     
     public float pelletSpeed = 17f;
-    public float pelletLifetime = 0.5f; // short life = limited range
+    public float pelletLifetime = 0.5f; 
     public float recoil = 2.5f;
 
     public bool Grounded { get; private set; }
@@ -47,28 +44,25 @@ public class PlayerController : MonoBehaviour
         health.Died += OnDied;
     }
 
-    // ---- Input System messages ----
     void OnMove(InputValue value) { move = value.Get<Vector2>(); }
 
     void OnJump(InputValue value)
     {
-        if (Time.timeScale == 0f) return; // paused
+        if (Time.timeScale == 0f) return;
         if (value.isPressed)
         {
             lastJumpPressed = Time.time;
         }
         else
         {
-            // releasing the button early cuts the jump short
             if (rb.linearVelocity.y > 0f)
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
         }
     }
 
-    // one shot per press (cooldown still applies), so a missed "button released" can never lock the gun
     void OnFire(InputValue value)
     {
-        if (Time.timeScale == 0f) return; // paused
+        if (Time.timeScale == 0f) return; 
         if (value.isPressed && !Dead && Time.time >= nextFire) Shoot();
     }
 
@@ -87,7 +81,6 @@ public class PlayerController : MonoBehaviour
         Grounded = Physics2D.OverlapBox(rb.position, new Vector2(0.6f, 0.2f), 0f, groundMask) != null;
         if (Grounded) lastGrounded = Time.time;
 
-        // stick gives analog values: below 0.2 is a dead zone, above 0.7 is full speed
         float raw = move.x;
         float x = 0f;
         if (Mathf.Abs(raw) > 0.2f)
@@ -96,7 +89,6 @@ public class PlayerController : MonoBehaviour
         Vector2 vel = rb.linearVelocity;
         if (Time.time >= knockUntil) vel.x = x * moveSpeed;
 
-        // jump buffer + coyote time make jumps forgiving, especially on a touch screen
         if (Time.time - lastJumpPressed <= jumpBuffer && Time.time - lastGrounded <= coyoteTime)
         {
             vel.y = jumpVelocity;
@@ -117,7 +109,6 @@ public class PlayerController : MonoBehaviour
         Vector3 pos = transform.position + new Vector3(facing * 1.0f, 0.72f, 0f);
         for (int i = 0; i < pellets; i++)
         {
-            // evenly spread fan + a little randomness so it feels like real buckshot
             float t = pellets == 1 ? 0f : (i / (float)(pellets - 1)) - 0.5f;
             float angle = t * spreadAngle + Random.Range(-2f, 2f);
             Vector2 dir = Quaternion.Euler(0f, 0f, angle) * new Vector2(facing, 0f);
@@ -126,7 +117,6 @@ public class PlayerController : MonoBehaviour
             p.lifetime = pelletLifetime * Random.Range(0.85f, 1.15f);
             p.Launch(dir);
         }
-        // small kick backwards
         if (Time.time >= knockUntil)
         {
             rb.linearVelocity = new Vector2(-facing * recoil, rb.linearVelocity.y);
@@ -135,7 +125,6 @@ public class PlayerController : MonoBehaviour
         Sfx.Play("shoot", 0.9f);
     }
 
-    // Every damage source calls this: damage + knockback away from the source.
     public void Hit(int damage, Vector2 sourcePosition)
     {
         if (Dead) return;
