@@ -9,11 +9,13 @@ public abstract class Projectile : MonoBehaviour
 
     protected Rigidbody2D rb;
     int groundLayer;
+    int wallLayer;
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         groundLayer = LayerMask.NameToLayer("Ground");
+        wallLayer = LayerMask.NameToLayer("Wall");
     }
 
     public virtual void Launch(Vector2 direction)
@@ -27,7 +29,8 @@ public abstract class Projectile : MonoBehaviour
 
     protected bool IsSolid(Collider2D other)
     {
-        return other.gameObject.layer == groundLayer;
+        int layer = other.gameObject.layer;
+        return layer == groundLayer || layer == wallLayer;
     }
 
     void OnTriggerEnter2D(Collider2D other)

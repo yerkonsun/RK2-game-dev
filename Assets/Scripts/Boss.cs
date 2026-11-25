@@ -27,14 +27,19 @@ public class Boss : Enemy
     public float windUpTime = 0.7f;
     public float cooldownTime = 2.0f;
 
+    [Header("Damage Reaction")]
+    public float hitRainCooldown = 3.5f;
+
     Transform player;
     SpriteRenderer sr;
     float startX;
     int dir = 1;
     bool phase2;
     bool isAttacking;
+    bool hitRainPending;
     
     float timer;
+    float nextHitRainTime;
     int attackCounter = 0;
 
     bool InPhase2 { get { return health.Current <= health.maxHP / 2; } }
@@ -123,6 +128,12 @@ public class Boss : Enemy
             yield return StartCoroutine(FireRain());
             
         attackCounter++;
+        if (hitRainPending && !health.IsDead)
+        {
+            hitRainPending = false;
+            yield return new WaitForSeconds(Mathf.Max(0f, nextHitRainTime - Time.time));
+            yield return StartCoroutine(FireRain());
+        }
         isAttacking = false;
         
         currentState = State.Cooldown;
@@ -153,7 +164,8 @@ public class Boss : Enemy
 
     IEnumerator FireRain()
     {
-        int waves = phase2 ? 2 : 1;
+        // The second phase adds one extra overhead wave while keeping the warning window.
+        int waves = phase2 ? 3 : 1;
         for (int w = 0; w < waves && !health.IsDead; w++)
         {
             int columns = phase2 ? 5 : 3;
@@ -208,6 +220,32 @@ public class Boss : Enemy
             phase2 = true;
             sr.color = new Color(1f, 0.55f, 0.55f, 1f);
             Sfx.Play("warning");
+        }
+
+        // A hit provokes an overhead volley, but the cooldown prevents rapid-fire
+        // player attacks from starting a rain attack on every projectile.
+        if (!health.IsDead && Time.time >= nextHitRainTime)
+        {
+            nextHitRainTime = Time.time + hitRainCooldown;
+            if (isAttacking)
+                hitRainPending = true;
+            else
+                StartCoroutine(ReactToHitWithRain());
+        }
+    }
+
+    IEnumerator ReactToHitWithRain()
+    {
+        isAttacking = true;
+        currentState = State.Attacking;
+        yield return StartCoroutine(FireRain());
+        isAttacking = false;
+
+        if (!health.IsDead)
+        {
+            sr.color = phase2 ? new Color(1f, 0.55f, 0.55f, 1f) : Color.white;
+            currentState = State.Cooldown;
+            timer = cooldownTime;
         }
     }
 
