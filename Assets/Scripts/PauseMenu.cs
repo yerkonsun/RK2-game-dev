@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
         Sfx.Play("click");
         pausePanel.SetActive(true);
         Time.timeScale = 0f;
-        AudioListener.pause = true;
+        Sfx.SetPaused(true);
         if (popup != null)
         {
             if (popRoutine != null) StopCoroutine(popRoutine);
@@ -50,21 +50,21 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
-        AudioListener.pause = false;
+        Sfx.SetPaused(false);
         Sfx.Play("click");
     }
 
     public void Restart()
     {
         Time.timeScale = 1f;
-        AudioListener.pause = false;
+        Sfx.SetPaused(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadMenu()
     {
         Time.timeScale = 1f;
-        AudioListener.pause = false;
+        Sfx.SetPaused(false);
         SceneManager.LoadScene(menuSceneName);
     }
 
