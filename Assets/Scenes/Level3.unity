@@ -1254,6 +1254,9 @@ MonoBehaviour:
   pausePanel: {fileID: 4598504273591263146}
   popup: {fileID: 0}
   menuSceneName: MainMenu
+  enableStyledPauseMenu: 1
+  pausePanelSprite: {fileID: 21300000, guid: 74a30f6e5f0f33b4e95388caba74509b, type: 3}
+  pauseButtonSprite: {fileID: 21300000, guid: 4ee134e32b5d5495c82a08b01774433f, type: 3}
 --- !u!1 &674236234
 GameObject:
   m_ObjectHideFlags: 0
