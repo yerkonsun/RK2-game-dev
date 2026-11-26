@@ -1,4 +1,4 @@
-# Whiskers: Night of the Pale One
+# Game dev: Midterm project
 
 2D mobile platformer made in Unity. This repository contains the Unity project for Assignments 8–10 and the latest integrated game changes.
 
