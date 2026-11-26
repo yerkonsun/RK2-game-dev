@@ -19,4 +19,4 @@ The assignment branches preserve reviewable checkpoints; commits remain in the s
 - `Assets` — scenes, scripts, prefabs, art, and audio clips.
 - `Packages` — Unity package manifest and lock file.
 - `ProjectSettings` — Unity project configuration.
-- `DECISIONS.md` — Assignment 10 AI decisions and changes.
+- `DECISIONS.md` — decisions and changes.
